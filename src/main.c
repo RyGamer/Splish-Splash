@@ -14,6 +14,8 @@ const float PLAYER_Y = HEIGHT - (PLAYER_SIZE * 2.5f);
 const float OCEAN_RATE = 0.2f;
 const float BLINK_RATE = 0.1f;
 const float BLINK_CAP = 4.0f;
+const float CONTINUE_RATE = 0.1f;
+const float CONTINUE_CAP = 5.0f;
 const Vector2 DROP_SIZE = (Vector2){8, 16};
 const KeyboardKey accept = KEY_ENTER;
 
@@ -109,6 +111,10 @@ int main() {
     float blink = 0.0f;
     bool blank = false;
 
+    // Game over
+    bool _continue = false;
+    float continueTime = 0.0f;
+
     // Game loop
     while(!WindowShouldClose()) {
         switch(sceneNo) {
@@ -156,7 +162,12 @@ int main() {
                 // Initialize game properties
                 score = 0;
                 lives = 3;
+
+                // Game over
+                _continue = false;
+                continueTime = 0.0f;
             
+                // Blinking stuff
                 if(blink < BLINK_CAP && !blank) blink += BLINK_RATE;
                 else {
                     blink -= BLINK_RATE;
@@ -185,7 +196,7 @@ int main() {
 
             case 1:
                 // Signal a game over
-                if(lives <= 0 || ocean.y <= 0) sceneNo = 2;
+                if(lives <= 0 || CheckCollisionRecs(ocean, enemy)) sceneNo = 2;
 
                 // Change enemy rates based on score
                 if(score >= 1000) {
@@ -351,8 +362,11 @@ int main() {
                 break;
 
             case 2:
-                // Reset game
-                if(IsKeyPressed(accept)) {
+                // Control resetting the game
+                if(continueTime < CONTINUE_CAP) continueTime += CONTINUE_RATE;
+                else _continue = true;
+
+                if(IsKeyPressed(accept) && _continue) {
                     
                     // (Reset title variables)
                     blink = 0.0f;
@@ -366,9 +380,9 @@ int main() {
 
                     ClearBackground(RED);
 
-                    DrawTextEx(font, "Game Over", (Vector2){WIDTH/2 - 120, HEIGHT/2 - 40}, 40, FONT_SPACE, MAROON);
-                    DrawTextEx(font, TextFormat("Final Score: %i", score), (Vector2){WIDTH/2 - 120, HEIGHT/2 + 20}, 20, FONT_SPACE, MAROON);
-                    DrawTextEx(font, "Press Enter to continue", (Vector2){WIDTH/2 - 120, HEIGHT/2 + 60}, 10, FONT_SPACE, YELLOW);
+                    DrawTextEx(font, "Game Over", (Vector2){WIDTH/2 - 256, HEIGHT/2 - 40}, 40, FONT_SPACE, MAROON);
+                    DrawTextEx(font, TextFormat("Final Score: %i", score), (Vector2){WIDTH/2 - 256, HEIGHT/2 + 20}, 20, FONT_SPACE, MAROON);
+                    DrawTextEx(font, "Press Enter to continue", (Vector2){WIDTH/2 - 256, HEIGHT/2 + 60}, 10, FONT_SPACE, _continue ? YELLOW : BLANK);
 
                 EndDrawing();
 
