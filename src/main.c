@@ -7,6 +7,7 @@ const int PLAYER_SPEED = 6;
 const int PLAYER_SIZE = 64;
 const int DROP_SPEED = 4;
 const int RISE_RATE = 10;
+const int FONT_SPACE = 2;
 const unsigned int OCEAN_CAP = 100;
 const unsigned int DROP_AMOUNT = 10;
 const float PLAYER_Y = HEIGHT - (PLAYER_SIZE * 2.5f);
@@ -43,6 +44,9 @@ int main() {
     Texture2D playerImg = LoadTexture("resources/umby.png");
     Texture2D enemyImg = LoadTexture("resources/cloud.png");
     Texture2D boltImg = LoadTexture("resources/bolt.png");
+
+    // Font
+    Font font = LoadFont("resources/barcade-brawl-font/BarcadeBrawlRegular-plYD.ttf");
 
     // Characters
     Rectangle player = (Rectangle){WIDTH/2, PLAYER_Y, PLAYER_SIZE, PLAYER_SIZE};
@@ -173,7 +177,7 @@ int main() {
                     ClearBackground(BLACK);
 
                     DrawTexture(logoImg, WIDTH/2 - 256, -32, WHITE);
-                    DrawText("Press ENTER to start", WIDTH/2 - 120, HEIGHT - 128, 20, blank ? BLANK : WHITE);
+                    DrawTextEx(font, "Press ENTER to start", (Vector2){WIDTH/2 - 180, HEIGHT - 128}, 16, FONT_SPACE, blank ? BLANK : WHITE);
 
                 EndDrawing();
 
@@ -339,8 +343,8 @@ int main() {
 
                     // Text
                     // DrawFPS(10, 10);
-                    DrawText(TextFormat("Score: %i", score), 10, 10, 24, BLACK);
-                    DrawText(TextFormat("Lives: %i", lives), 10, 44, 24, BLACK);
+                    DrawTextEx(font, TextFormat("Score: %i", score), (Vector2){10, 10}, 16, FONT_SPACE, BLACK);
+                    DrawTextEx(font, TextFormat("Lives: %i", lives), (Vector2){10, 44}, 16, FONT_SPACE, BLACK);
 
                 EndDrawing();
 
@@ -362,9 +366,9 @@ int main() {
 
                     ClearBackground(RED);
 
-                    DrawText("Game Over", WIDTH/2 - 120, HEIGHT/2 - 40, 40, MAROON);
-                    DrawText(TextFormat("Final Score: %i", score), WIDTH/2 - 120, HEIGHT/2 + 20, 20, MAROON);
-                    DrawText("Press Enter to continue", WIDTH/2 - 120, HEIGHT/2 + 60, 10, YELLOW);
+                    DrawTextEx(font, "Game Over", (Vector2){WIDTH/2 - 120, HEIGHT/2 - 40}, 40, FONT_SPACE, MAROON);
+                    DrawTextEx(font, TextFormat("Final Score: %i", score), (Vector2){WIDTH/2 - 120, HEIGHT/2 + 20}, 20, FONT_SPACE, MAROON);
+                    DrawTextEx(font, "Press Enter to continue", (Vector2){WIDTH/2 - 120, HEIGHT/2 + 60}, 10, FONT_SPACE, YELLOW);
 
                 EndDrawing();
 
