@@ -40,12 +40,22 @@ int main() {
     InitWindow(WIDTH, HEIGHT, "Splish! Splash!");
     SetTargetFPS(60);
 
+    InitAudioDevice();
+    SetMasterVolume(0.75f);
+
     unsigned int sceneNo = 0;
 
     // Sprites
     Texture2D playerImg = LoadTexture("resources/umby.png");
     Texture2D enemyImg = LoadTexture("resources/cloud.png");
     Texture2D boltImg = LoadTexture("resources/bolt.png");
+
+    // Sounds
+    Sound catch = LoadSound("resources/catch.wav");
+    Sound drop = LoadSound("resources/drop.wav");
+    Sound sink = LoadSound("resources/sink.wav");
+    Sound zap = LoadSound("resources/zap.wav");
+    Sound boom = LoadSound("resources/boom.wav");
 
     // Font
     Font font = LoadFont("resources/barcade-brawl-font/BarcadeBrawlRegular-plYD.ttf");
@@ -261,12 +271,14 @@ int main() {
                         else if(oceanHeightTracker > 0) {
                             ocean.y += RISE_RATE;
                             oceanHeightTracker--;
+                            PlaySound(sink);
                         }
                     }
                 }
 
                 if(dropTime >= dropRate) {
                     drops[dropIndex].visible = true;
+                    PlaySound(drops[dropIndex].lightning ? zap : drop);
                     dropIndex = (dropIndex + 1) % DROP_AMOUNT;
                     dropTime = 0.0f;
                 }
@@ -276,8 +288,14 @@ int main() {
                 // Check if a drop was caught
                 for(unsigned int i = 0; i < DROP_AMOUNT; i++) {
                     if(CheckCollisionRecs(player, drops[i].body)) {
-                        if(drops[i].lightning) lives--;
-                        else score++;
+                        if(drops[i].lightning) {
+                            lives--;
+                            PlaySound(boom);
+                        }
+                        else {
+                            score++;
+                            PlaySound(catch);
+                        }
 
                         drops[i].visible = false;
                     }
@@ -391,6 +409,7 @@ int main() {
     }
     
     // Exit
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
