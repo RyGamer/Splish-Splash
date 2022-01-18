@@ -10,4 +10,4 @@ This game was meant for the sole purpose of being **played**, and its source fil
 
 Splish! Splash! © 2022 Ryan Wright
 
-*Since public release, this license has been updated on **1/18/2022 at 11:58 AM***
+*Since public release, this license has been updated on **1/18/2022 at 11:58 AM**.*
