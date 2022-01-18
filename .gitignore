@@ -1,5 +1,7 @@
 .vscode
 *.code-workspace
 *.exe
+*.res
+*.rc
 Makefile
 Makefile.Android
