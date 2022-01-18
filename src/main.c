@@ -38,6 +38,11 @@ int movePlayer(bool left, bool right) {
 int main() {
     // Setup
     InitWindow(WIDTH, HEIGHT, "Splish! Splash!");
+
+    // (Icon)
+    Image icon = LoadImage("resources/umby.png");
+    SetWindowIcon(icon);
+
     SetTargetFPS(60);
 
     InitAudioDevice();
@@ -199,6 +204,7 @@ int main() {
 
                     DrawTexture(logoImg, WIDTH/2 - 256, -32, WHITE);
                     DrawTextEx(font, "Press ENTER to start", (Vector2){WIDTH/2 - 180, HEIGHT - 128}, 16, FONT_SPACE, blank ? BLANK : WHITE);
+                    DrawTextEx(font, "Created by: Ryan Wright", (Vector2){WIDTH/2 - 140, 50}, 10, FONT_SPACE, YELLOW);
 
                 EndDrawing();
 
