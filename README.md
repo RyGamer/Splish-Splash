@@ -27,3 +27,5 @@ Umby is an *8-bit* umbrella trying to stop a flood from rising within the city..
 Hi! Hope you enjoy the game :)
 
 This is the first time I've ever made one in just plain C. If you're interested in C-ing any other wacky projects I partake in for the future, you can check out my content [here](https://www.instagram.com/ryguygamez/?hl=en).
+
+Splish! Splash! © 2022 Ryan Wright
