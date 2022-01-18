@@ -1,4 +1,4 @@
-*Note: We will use the term CONTENTS to describe this repository and its contents, including **all** files found in any distribution of the game.*
+*Note: We will use the term CONTENTS to describe this repository and its contents, including **all** files found in any distribution of the game. This may exclude any external materials used that were already under a separate license (potentially listed in the [README](https://github.com/RyGamer/Splish-Splash#readme)), as such license will take precedence over this one.*
 
 #### Those with access to the CONTENTS are restricted under these terms:
 
