@@ -130,8 +130,36 @@ int main() {
     bool _continue = false;
     float continueTime = 0.0f;
 
+    // Splash screen
+    Texture2D splashImg = LoadTexture("resources/splash-screen.png");
+    bool splash = true;
+
     // Game loop
     while(!WindowShouldClose()) {
+        // Start with splash screen (loads game up)
+        if(splash) {
+            for(float f = 0; f < 10; f += 0.1f) {
+                BeginDrawing();
+
+                    ClearBackground(WHITE);
+                
+                    DrawTexture(splashImg, WIDTH/2 - 260, HEIGHT/2 - 225, WHITE);
+                    DrawTextEx(font, "RyGuyGamez \n presents...", (Vector2){WIDTH/2 + 35, 100}, 18, FONT_SPACE, BLACK);
+
+                EndDrawing();
+            }
+
+            for(float f = 0; f < 10; f += 0.25f) {
+                BeginDrawing();
+
+                    ClearBackground(WHITE);
+
+                EndDrawing();
+            }
+            
+            splash = false;
+        }
+
         switch(sceneNo) {
             case 0:
                 // Characters
